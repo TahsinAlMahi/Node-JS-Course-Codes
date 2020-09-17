@@ -1,12 +1,13 @@
 {
-  "name": "test",
+  "name": "dimik-pathshala",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
-  "author": "Tahsin Al Mahi",
+  "author": "Tahsin Al Mahi <tahsinalmahi@yahoo.com>",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",

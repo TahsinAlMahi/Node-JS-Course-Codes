@@ -1,22 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 
 <head>
-    <title>Learn Engineering</title>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" type="text/css" href="./style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>{{title}}</title>
 </head>
 
-<body>
-{{>header}}
-    <section class="section-1">
-        <div class="org-name">
-            <h1>Learn Engineering</h1>
-            <h2>Learn with fun!</h2>
-        </div>
-    </section>
+<body class="d-flex flex-column h-100">
+  {{>header}}
+
+  <main role="main" class="flex-shrink-0">
+    <div class="container">
+      <div class="row mt-3">
+        <h1>Hello</h1>
+      </div>
+    </div>
+  </main>
+
+  {{>footer}}
+
+  {{>scripts}}
 </body>
+
 </html>

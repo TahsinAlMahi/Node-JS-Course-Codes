@@ -3,27 +3,30 @@ const hbs = require('hbs')
 
 const app = express()
 
-const publicDirectory = path.join(__dirname, 'public')
-const viewsPath = path.join(__dirname, '/public/templates/views')
-const partialsPath = path.join(__dirname, '/public/templates/partials')
-
-app.use(express.static(publicDirectory))
+app.use(express.static('./public'))
 app.set('view engine', 'hbs')
-app.set('views', viewsPath)
-hbs.registerPartials(partialsPath)
+app.set('views', './public/templates/views')
+hbs.registerPartials('./public/templates/partials')
 
-app.get('/', function(req, res) {
-  res.send(info)
+app.get('/', function (req, res) {
+    res.render('index.hbs', {
+        title: 'Home'
+    })
 })
 
-app.get('/about', function(req, res) {
-  res.render('about.hbs')
+app.get('/about', function (req, res) {
+    res.render('about.hbs', {
+        title: 'About us'
+    })
 })
 
-app.get('*', function(req, res) {
-  res.send('Error 404 Not Found!')
+app.get('*', function (req, res) {
+    res.render('404.hbs', {
+        title: 'দ্বিমিক পাঠশালা | 404'
+    })
 })
 
-app.listen(3000, function(req, res) {
-  console.log('Server started at port 3000')
+const port = process.env.PORT || 3000
+app.listen(port, function () {
+    console.log('Server started on port ' + port)
 })
