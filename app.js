@@ -1,5 +1,8 @@
 const express = require('express')
 const hbs = require('hbs')
+const mongoose = require('mongoose')
+require('./db/mongoose')
+const User = require('./models/user')
 
 const app = express()
 
@@ -7,6 +10,9 @@ app.use(express.static('./public'))
 app.set('view engine', 'hbs')
 app.set('views', './public/templates/views')
 hbs.registerPartials('./public/templates/partials')
+
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 app.get('/', function (req, res) {
     res.render('index.hbs', {
@@ -18,6 +24,18 @@ app.get('/about', function (req, res) {
     res.render('about.hbs', {
         title: 'About us'
     })
+})
+
+app.get('/account', function(req, res) {
+    res.render('login-registration.hbs', {
+        title: 'Register'
+    })
+})
+
+app.post('/register', function(req, res) {
+    const user = new User(req.body)
+    user.save()
+    res.redirect('back')
 })
 
 app.get('*', function (req, res) {
