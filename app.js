@@ -12,7 +12,9 @@ app.set('views', './public/templates/views')
 hbs.registerPartials('./public/templates/partials')
 
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({
+    extended: false
+}))
 
 app.get('/', function (req, res) {
     res.render('index.hbs', {
@@ -26,16 +28,20 @@ app.get('/about', function (req, res) {
     })
 })
 
-app.get('/account', function(req, res) {
+app.get('/account', function (req, res) {
     res.render('login-registration.hbs', {
         title: 'Register'
     })
 })
 
-app.post('/register', function(req, res) {
-    const user = new User(req.body)
-    user.save()
-    res.redirect('back')
+app.post('/register', async function(req, res) {
+    try {
+        const user = new User(req.body)
+        await user.save()
+        res.redirect('back')
+    } catch (error) {
+        res.redirect('back')
+    }
 })
 
 app.get('*', function (req, res) {
