@@ -6,6 +6,7 @@ require('./db/mongoose')
 const passport = require('passport')
 const {authentication, secureAuthentication} = require('./authentication/auth')
 const User = require('./models/user')
+const Post = require('./models/post')
 
 const app = express()
 
@@ -26,8 +27,11 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/', function (req, res) {
-    res.render('index.hbs', {
-        title: 'Home'
+    Post.find({}, function(err, posts) {
+        res.render('index.hbs', {
+            title: 'Home',
+            posts: posts
+        })
     })
 })
 
@@ -74,6 +78,12 @@ app.get('/profile', secureAuthentication, function(req, res) {
 app.get('/logout', function(req, res) {
     req.logout()
     res.redirect('/')
+})
+
+app.post('/post', async function(req, res) {
+    const post = new Post(req.body)
+    await post.save()
+    res.redirect('back')
 })
 
 app.get('*', function (req, res) {
