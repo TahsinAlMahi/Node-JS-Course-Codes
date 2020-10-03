@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="h-100">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>{{title}}</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+  {{>header}}
+
+  <main role="main" class="flex-shrink-0">
+    <div class="container">
+      <div class="row mt-3">
+        <h1>Edit Post</h1>
+
+          <form action="/edit/{{posts.id}}" method="POST">
+            <div class="form-group">
+              <label>Title</label>
+              <input type="text" class="form-control" id="user_login" autocomplete="off" name="title">
+            </div>
+            <div class="form-group">
+              <label>Author Name</label>
+              <input type="text" class="form-control" id="user_pass" autocomplete="off" name="author">
+            </div>
+            <div class="form-group">
+              <label>Content</label>
+              <input type="text" class="form-control" id="user_pass" autocomplete="off" name="content">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Post">
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {{>footer}}
+
+  {{>scripts}}
+</body>
+
+</html>

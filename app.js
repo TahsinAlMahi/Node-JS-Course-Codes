@@ -35,6 +35,28 @@ app.get('/', function (req, res) {
     })
 })
 
+app.get('/edit/:id', async function(req, res) {
+    const id = req.params.id
+    await Post.findById(id, function(err, posts) {
+        res.render('edit.hbs', {
+            posts: posts
+        })
+    })
+})
+
+app.post('/edit/:id', async function(req, res) {
+    const id = req.params.id
+
+    const post = {}
+    post.title = req.body.title
+    post.author = req.body.author
+    post.content = req.body.content
+    
+    await Post.findByIdAndUpdate(id, post)
+
+    res.redirect('/')
+})
+
 app.get('/about', secureAuthentication, function (req, res) {
     res.render('about.hbs', {
         title: 'About us'
