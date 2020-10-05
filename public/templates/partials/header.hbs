@@ -18,9 +18,15 @@
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right mr-5">
+                {{#if admin}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                {{else}}
                 <li class="nav-item">
                     <a class="nav-link" href="/account">My Account</a>
                 </li>
+                {{/if}}
             </ul>
             {{!-- <ul class="navbar-nav mr-auto">
                 {{#each pages}}
