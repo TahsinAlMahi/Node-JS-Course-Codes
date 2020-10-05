@@ -26,16 +26,26 @@ app.use(express.urlencoded({extended: false}))
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use((req, res, next) => { //This middleware checks the local user
+    res.locals.user = req.user
+    next()
+})
+
 app.get('/', function (req, res) {
+    const user = res.locals.user
+    if(user && user.admin === true) {
+        var admin = true
+    }
     Post.find({}, function(err, posts) {
         res.render('index.hbs', {
             title: 'Home',
-            posts: posts
+            posts: posts,
+            admin: admin
         })
     })
 })
 
-app.get('/edit/:id', async function(req, res) {
+app.get('/edit/:id', secureAuthentication, async function(req, res) {
     const id = req.params.id
     await Post.findById(id, function(err, posts) {
         res.render('edit.hbs', {
@@ -55,6 +65,12 @@ app.post('/edit/:id', async function(req, res) {
     await Post.findByIdAndUpdate(id, post)
 
     res.redirect('/')
+})
+
+app.get('/delete/:id', secureAuthentication, async function(req, res) {
+    const id = req.params.id
+    await Post.findByIdAndRemove(id)
+    res.redirect('back')
 })
 
 app.get('/about', secureAuthentication, function (req, res) {
@@ -86,8 +102,7 @@ app.post('/login', async function(req, res, next) {
             failureRedirect: '/'
         })(req, res, next)
     } catch (error) {
-        // res.redirect('back')
-        console.log(error)
+        res.redirect('back')
     }
 })
 

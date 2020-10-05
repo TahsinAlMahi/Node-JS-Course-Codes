@@ -21,13 +21,31 @@
         </div>
         {{!-- <div class="col-xs-12 col-md-1"></div> --}}
         <div class="col-xs-12 col-md-9 flex-wrap d-flex flex-row">
+          {{#if admin}}
           {{#each posts}}
-          {{this.title}}<br>
-          {{this.author}}<br>
-          {{this.content}}<br>
-          <a href="/edit/{{id}}" class="btn btn-primary">Edit</a>
-          <hr>
+          <div class="card mr-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{this.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{this.author}}</h6>
+              <p class="card-text">{{this.content}}</p>
+              <a href="/edit/{{this.id}}" class="card-link">Edit</a>
+              <a href="/delete/{{this.id}}" class="card-link">Delete</a>
+              <a href="/read/{{this.id}}" class="card-link">Read more...</a>
+            </div>
+          </div>
           {{/each}}
+          {{else}}
+          {{#each posts}}
+          <div class="card mr-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{this.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{this.author}}</h6>
+              <p class="card-text">{{this.content}}</p>
+              <a href="/read/{{this.id}}" class="card-link">Read more...</a>
+            </div>
+          </div>
+          {{/each}}
+          {{/if}}
         </div>
       </div>
     </div>
@@ -35,7 +53,7 @@
 
   {{>footer}}
 
-  {{!-- {{>scripts}} --}}
+  {{>scripts}}
 </body>
 
 </html>
