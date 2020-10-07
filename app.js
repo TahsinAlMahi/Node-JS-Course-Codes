@@ -31,16 +31,25 @@ app.use(function(req, res, next) {
     next()
 })
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
     const user = res.locals.user
     if(user && user.admin === true) {
         var admin = true
     }
-    Post.find({}, function(err, posts) {
+    await Post.find({}, function(err, posts) {
         res.render('index.hbs', {
             title: 'Home',
             posts: posts,
             admin: admin
+        })
+    })
+})
+
+app.get('/read/:id', async function(req, res) {
+    const id = req.params.id
+    await Post.findById(id, function(err, post) {
+        res.render('post.hbs', {
+            post: post
         })
     })
 })
@@ -81,7 +90,7 @@ app.get('/about', secureAuthentication, function (req, res) {
 
 app.get('/account', function (req, res) {
     res.render('login-registration.hbs', {
-        title: 'Register'
+        title: 'Login | Register'
     })
 })
 
